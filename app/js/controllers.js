@@ -9,5 +9,22 @@ angular.module('IPGui.controllers', []).
   }]).
 
   /* interface display controller */
-  controller('ipgui', function($scope) {    
-  });
+  controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
+  	$scope.ipdata = "";
+  	
+  	metadata.load().then(
+  		function (a){
+  			var convertor = new xml2js();
+  			convertor.parseString(a,
+  				function(err, result){
+  					if(err){
+  						console.log(err);
+  					}else{
+  						$scope.ipdata = JSON.stringify(result, 2, 0);
+  					}
+  				}
+  			)},
+  		function (b){
+  			$scope.ipdata = b;
+  			})
+  }]);
