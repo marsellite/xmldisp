@@ -1,0 +1,13 @@
+{
+  "name": "IPGui",
+  "dependencies": {
+    "angular": "~1.5.0",
+    "angular-route": "~1.5.0",
+    "angular-loader": "~1.5.0",
+    "angular-mocks": "~1.5.0",
+    "jquery": "~1.11.3",
+    "bootstrap": "*",
+    "xml2js": "*",
+    "express": "*"
+  }
+}
