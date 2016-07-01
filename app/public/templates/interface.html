@@ -1,33 +1,87 @@
-<!--div container>
-  <div row>
-    <div col-xs-5>
-       <div><span>Placeholder for IP symbole</span></div>
-    </div>
-    <div col-xs-2>
-	<ul class="nav nav-pills ">
-	  <li ng-repeat="view in views" ng-click="click(view)" ng-class="{active: view.name == active.name}"><a href="#interface" active-status>{{view.name}}</a></li>
-	</ul>
-    </div>
-    <div col-xs-5>
-	<p>adsfasdf asdf </p>
-    </div>
-  </div>
-</div-->
-<div container>
-<div class="row">
-<div class="sidebar-nav col-xs-3"> 
-    <!--div class="well" style="width:300px; padding: 8px 0;"--> 
-        <ul class="nav nav-pills nav-stacked">  
-          <li class="nav-header">Admin Menu</li>         
-	  <li ng-repeat="view in views" ng-click="click(view)" ng-class="{active: view.name == active.name}"><a href="#interface">{{view.name}}</a></li>
-        </ul> 
-    <!--/div--> 
-</div> 
 
-<div class="pull-right col-xs-9">
-<h2>asdfasdfasdfasdfasdfasdf</h2>
-<p>asdfasdfasdfasdfasdfasdf</p>
-</div>
+<div class="page-container">
 
-</div>
-</div>
+	<!-- top navbar -->
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".sidebar-nav">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">IP GUI demo</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row row-offcanvas row-offcanvas-left">
+
+			<!-- sidebar -->
+			<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+				<ul class="nav navbar-nav">
+					<li ng-repeat="view in views" ng-click="click(view)" ng-class="{active: view.name == active.name}">
+						<a href="#interface">{{view.$["name"]}}</a>
+					</li>
+				</ul>
+			</div>
+
+			<!-- main area -->
+			<div class="col-xs-12 col-sm-9">
+				<div ng-repeat="g in active.group" ng-show='showme(g.$["show"])'>
+					<h3>{{g.$["name"]}}</h3>
+					<p>{{g.description[0]}}</p>
+					<form class="form-horizontal well">
+						<div ng-repeat='cntl in g.setting'>
+							<!-- Text input-->
+							<div class="form-group"  ng-if='cntl.$["display"]=="input"' ng-show='showme(cntl.$["show"])'>
+								<label for='{{cntl.$["name"]}}' class="col-sm-2 control-label">{{cntl.$["name"]}}</label>
+								<div class="col-sm-10">
+									<input type="text" ng-model="cntl.userConfig" class="form-control" placeholder='{{cntl.$["default"]}}'>
+								</div>
+							</div>
+
+							<!-- radio-->
+							<div class="form-group" ng-if='cntl.$["display"]=="radius"' ng-show='showme(cntl.$["show"])'>
+								<label class="col-sm-2 control-label">{{cntl.$["name"]}}</label>
+								<div class="col-sm-10">
+									<div class="radio" ng-repeat='lab in parseList(cntl.$["values"])'>
+										<label>
+											<input type="radio" ng-model="cntl.userConfig" value="{{lab}}" checked>
+											{{lab}}
+										</label>
+									</div>
+								</div>
+							</div>
+							
+							<!-- dropbox-->
+							<div class="form-group" ng-if='cntl.$["display"]=="dropbox"' ng-show='showme(cntl.$["show"])'>
+								<label for={{cntl.$["name"]}} class="col-sm-2 control-label">{{cntl.$["name"]}}</label>
+								<div class="col-sm-10">
+									<select class="form-control" ng-model="cntl.userConfig">
+										<option ng-repeat='lab in parseList(cntl.$["values"])'>{{lab}}</option>
+									</select>
+								</div>
+							</div>
+							
+							<!-- checkbox-->
+							<div class="form-group" ng-if='cntl.$["display"]=="checkbox"' ng-show='showme(cntl.$["show"])'>
+								<label for={{cntl.$["name"]}} class="col-sm-2 control-label"></label>
+								<div class="col-sm-10">
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" ng-model="cntl.userConfig"> {{cntl.$["name"]}}
+										</label>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</form>
+				</div>
+			</div><!-- /.col-xs-12 main -->
+
+		</div><!--/.row-->
+	</div><!--/.container-->
+</div><!--/.page-container-->

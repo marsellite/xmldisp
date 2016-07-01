@@ -1,0 +1,6 @@
+{
+  "name": "IPGui",
+  "dependencies": {
+    "xml2js": ""
+  }
+}
