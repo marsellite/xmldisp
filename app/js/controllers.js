@@ -13,7 +13,7 @@ angular.module('IPGui.controllers', []).
 	
 	$scope.views = metadata.load().ip.view;
 	
-	
+
 	$scope.active = $scope.views[0];
 
 	$scope.click = function (v){
@@ -27,5 +27,7 @@ angular.module('IPGui.controllers', []).
 	$scope.parseList = function(str){
 		return str.split(" ");
 	}
+	
+	console.log($scope.userConfig);
 
   }]);

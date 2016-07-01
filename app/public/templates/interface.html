@@ -29,26 +29,26 @@
 
 			<!-- main area -->
 			<div class="col-xs-12 col-sm-9">
-				<div ng-repeat="g in active.group" ng-show='showme(g.$["show"])'>
+				<div ng-repeat="g in active.group" ng-show='g.$["show"]?show[g.$["show"]]:true'>
 					<h3>{{g.$["name"]}}</h3>
 					<p>{{g.description[0]}}</p>
 					<form class="form-horizontal well">
 						<div ng-repeat='cntl in g.setting'>
 							<!-- Text input-->
-							<div class="form-group"  ng-if='cntl.$["display"]=="input"' ng-show='showme(cntl.$["show"])'>
+							<div class="form-group"  ng-if='cntl.$["display"]=="input"' ng-show='cntl.$["show"]?show[cntl.$["show"]]:true'>
 								<label for='{{cntl.$["name"]}}' class="col-sm-2 control-label">{{cntl.$["name"]}}</label>
 								<div class="col-sm-10">
-									<input type="text" ng-model="cntl.userConfig" class="form-control" placeholder='{{cntl.$["default"]}}'>
+									<input type="text" ng-model='userConfig[cntl.$["id"]]' class="form-control" placeholder='{{cntl.$["default"]}}'>
 								</div>
 							</div>
 
 							<!-- radio-->
-							<div class="form-group" ng-if='cntl.$["display"]=="radius"' ng-show='showme(cntl.$["show"])'>
+							<div class="form-group" ng-if='cntl.$["display"]=="radius"' ng-show='cntl.$["show"]?show[cntl.$["show"]]:true'>
 								<label class="col-sm-2 control-label">{{cntl.$["name"]}}</label>
 								<div class="col-sm-10">
 									<div class="radio" ng-repeat='lab in parseList(cntl.$["values"])'>
 										<label>
-											<input type="radio" ng-model="cntl.userConfig" value="{{lab}}" checked>
+											<input type="radio" ng-model='userConfig[cntl.$["id"]]' value="{{lab}}" checked>
 											{{lab}}
 										</label>
 									</div>
@@ -56,22 +56,22 @@
 							</div>
 							
 							<!-- dropbox-->
-							<div class="form-group" ng-if='cntl.$["display"]=="dropbox"' ng-show='showme(cntl.$["show"])'>
+							<div class="form-group" ng-if='cntl.$["display"]=="dropbox"' ng-show='cntl.$["show"]?show[cntl.$["show"]]:true'>
 								<label for={{cntl.$["name"]}} class="col-sm-2 control-label">{{cntl.$["name"]}}</label>
 								<div class="col-sm-10">
-									<select class="form-control" ng-model="cntl.userConfig">
+									<select class="form-control" ng-model='userConfig[cntl.$["id"]]'>
 										<option ng-repeat='lab in parseList(cntl.$["values"])'>{{lab}}</option>
 									</select>
 								</div>
 							</div>
 							
 							<!-- checkbox-->
-							<div class="form-group" ng-if='cntl.$["display"]=="checkbox"' ng-show='showme(cntl.$["show"])'>
+							<div class="form-group" ng-if='cntl.$["display"]=="checkbox"' ng-show='cntl.$["show"]?show[cntl.$["show"]]:true'>
 								<label for={{cntl.$["name"]}} class="col-sm-2 control-label"></label>
 								<div class="col-sm-10">
 									<div class="checkbox">
 										<label>
-											<input type="checkbox" ng-model="cntl.userConfig"> {{cntl.$["name"]}}
+											<input type="checkbox" ng-model='userConfig[cntl.$["id"]]'> {{cntl.$["name"]}}
 										</label>
 									</div>
 								</div>
