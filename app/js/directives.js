@@ -16,3 +16,15 @@ angular
         }
     };
 }]);
+//  .directive('activeStatus', function() {
+//    return {   
+//        restrict: 'A',
+//	scope:{
+//	view:'='
+//},
+//        link: function($scope, el){
+//	if($scope.view.active)
+//		el.addClass('active');
+//        }
+//    };
+//});

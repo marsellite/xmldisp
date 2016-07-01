@@ -10,21 +10,31 @@ angular.module('IPGui.controllers', []).
 
   /* interface display controller */
   controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
-  	$scope.ipdata = "";
-  	
-  	metadata.load().then(
-  		function (a){
-  			var convertor = new xml2js();
-  			convertor.parseString(a,
-  				function(err, result){
-  					if(err){
-  						console.log(err);
-  					}else{
-  						$scope.ipdata = JSON.stringify(result, 2, 0);
-  					}
-  				}
-  			)},
-  		function (b){
-  			$scope.ipdata = b;
-  			})
+	$scope.views = [
+		{'name':'write_on_reged'},
+		{'name':'bb_write_on_reged'},
+		{'name':'bb_write_on_reged11'}
+];
+	$scope.active = $scope.views[0];
+
+	$scope.click = function click(v){
+	$scope.active = v;
+}
+  //	$scope.ipdata = "";
+  //	
+  //	metadata.load().then(
+  //		function (a){
+  //			var convertor = new xml2js();
+  //			convertor.parseString(a,
+  //				function(err, result){
+  //					if(err){
+  //						console.log(err);
+  //					}else{
+  //						$scope.ipdata = JSON.stringify(result, 2, 0);
+  //					}
+  //				}
+  //			)},
+  //		function (b){
+  //			$scope.ipdata = b;
+  //			})
   }]);
