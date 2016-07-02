@@ -4,24 +4,22 @@ angular.module('IPGui.controllers', []).
 
   /* Xmlload controller */
   controller('xmlloader', ['$scope', 'metadata', function($scope, metadata) {  
-  	$scope.selectfile = metadata.getFile();
+  	$scope.selectfile = metadata.fileName();
   	//console.log($scope.selectfile.name);
   }]).
 
   /* interface display controller */
   controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
-	
-	$scope.views = metadata.load().ip.view;
 
-	$scope.active = $scope.views[0];
+	  $scope.views = {};
+	  $scope.active= {};
+	  $scope.userConfig = {}
 
-	$scope.click = function (v){
-		$scope.active = v;
-	}
-	$scope.parseList = function(str){
-		return str.split(" ");
-	}
-	$scope.userConfig = {}
+  	var init = function(result)
+  	{
+		$scope.views = result;
+		$scope.active = $scope.views[0];
+
 	/*init userConfig*/
 	for( var i=0; i<$scope.views.length; i++){
 		var view = $scope.views[i];
@@ -43,10 +41,21 @@ angular.module('IPGui.controllers', []).
 			}
 		}
 	}
-	
-	
+
 	console.log($scope.userConfig);
 
+  	};	  
+	//$scope.views = metadata.load().ip.view;
+	metadata.load().then(init, function(result){console.log(result);});
+
+
+	$scope.click = function (v){
+		$scope.active = v;
+	}
+	$scope.parseList = function(str){
+		return str.split(" ");
+	}
+	
 	$scope.refreshpage = function (id){
 		//$scope.$apply();
 		//$scope.userConfig[id] = true;
