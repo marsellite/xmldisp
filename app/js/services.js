@@ -245,7 +245,7 @@ angular
                   "name": "has another group",
                   "type": "macro",
                   "display": "checkbox",
-                  "default": "true"
+                  "default": true
                 }
               }
             ]

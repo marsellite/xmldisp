@@ -12,22 +12,46 @@ angular.module('IPGui.controllers', []).
   controller('ipgui', ['$scope', 'metadata', function($scope, metadata) {
 	
 	$scope.views = metadata.load().ip.view;
-	
 
 	$scope.active = $scope.views[0];
 
 	$scope.click = function (v){
 		$scope.active = v;
 	}
-	
-	$scope.showme = function(expression){
-		return true;
-	}
-	
 	$scope.parseList = function(str){
 		return str.split(" ");
 	}
+	$scope.userConfig = {}
+	/*init userConfig*/
+	for( var i=0; i<$scope.views.length; i++){
+		var view = $scope.views[i];
+		for( var j=0; j<view.group.length; j++){
+			var group = view.group[j];
+			for( var k=0; k<group.setting.length; k++){
+				var setting =group.setting[k];
+				if( "default" in setting.$ )
+					$scope.userConfig[setting.$["id"]] =  setting.$["default"];
+  				else{
+					if(setting.$["display"] == "checkbox"){
+						$scope.userConfig[setting.$["id"]] =  false;
+	
+					}
+					else if(setting.$["display"] == "dropbox" || setting.$["display"] == "radius"){
+						$scope.userConfig[setting.$["id"]] =  $scope.parseList(setting.$["values"])[0];
+					}
+				}
+			}
+		}
+	}
+	
 	
 	console.log($scope.userConfig);
+
+	$scope.refreshpage = function (id){
+		//$scope.$apply();
+		//$scope.userConfig[id] = true;
+		console.log($scope.userConfig);
+		
+	}
 
   }]);
