@@ -45,8 +45,10 @@ angular.module('IPGui.controllers', []).
 	console.log($scope.userConfig);
 
   	};	  
+  	var debug = function(result){console.log(result);};
+
 	//$scope.views = metadata.load().ip.view;
-	metadata.load().then(init, function(result){console.log(result);});
+	metadata.load().then(debug, function(result){console.log(result);});
 
 
 	$scope.click = function (v){

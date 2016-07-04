@@ -6,7 +6,7 @@ angular
 	var metadata = {}
 	function setFile(file) {
 		metadata.file = file;
-		console.log(metadata.file.name);
+		console.log(metadata.file);
 	}
 	function fileName() {
 		if('file' in metadata){
@@ -21,12 +21,15 @@ angular
 		// load xml file and convert to JSON format
 		var reader = new FileReader();
 		reader.onload = function(e){
-		d.resolve(e.target.result);
-		}
+      //var parser = new xml2js.Parser();
+       myparser.parseString(e.target.result, function (err, result) {    
+        console.log( JSON.stringify(result, null, 2));                                                       
+		    d.resolve(result);
+    });  
+		};
 		reader.onerror = function(e){
 		d.reject(e.target.result);
-		}
-		console.log(metadata.file);
+		};
 		reader.readAsText(metadata.file);
 		return d.promise;
   };
